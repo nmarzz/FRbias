@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 root = 'rfw'
 
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
 print('Model on ' + str(device))
