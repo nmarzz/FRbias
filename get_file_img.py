@@ -48,6 +48,7 @@ def get_random_pair(rfw_root,race):
 
     TEXT_PATH = os.path.join(root,'txts',race, race + '_pairs.txt')
     DATA_PATH = os.path.join(root,'data',race + '_cropped')
+    print('Retrieving images from: ' + DATA_PATH)
 
     if not (os.path.exists(TEXT_PATH) and os.path.exists(DATA_PATH)):
         raise ValueError('Could not build data or text paths')
