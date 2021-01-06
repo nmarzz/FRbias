@@ -17,31 +17,6 @@ def get_random_pair(rfw_root,race):
             line = aline
         return line
 
-    def interp_pair(data_root,line):
-        key_words = line.split()
-
-        if len(key_words) == 3:
-            same = True
-
-            root = key_words[0]
-            ext1 = key_words[1].zfill(4)
-            ext2 = key_words[2].zfill(4)
-
-            path1 = os.path.join(data_root,root,root + '_' + ext1 + '.jpg')
-            path2 = os.path.join(data_root,root,root + '_' + ext2 + '.jpg')
-
-        elif len(key_words) == 4:
-            same = False
-            root1 = key_words[0]
-            ext1 = key_words[1].zfill(4)
-            root2 = key_words[2]
-            ext2 = key_words[3].zfill(4)
-
-            path1 = os.path.join(data_root,root1,root1 + '_' + ext1 + '.jpg')
-            path2 = os.path.join(data_root,root2,root2 + '_' + ext2 + '.jpg')
-
-        return path1,path2,same
-
     if not(race == 'Asian' or race == 'African' or race == 'Indian' or race == 'Caucasian'):
         raise ValueError("Invalid race choice: Must be Asian, African, Indian, or Caucasian")
 
@@ -62,3 +37,31 @@ def get_random_pair(rfw_root,race):
     img2 = Image.open(path2)
 
     return img1,img2,same
+
+
+
+
+def interp_pair(data_root,line):
+    key_words = line.split()
+
+    if len(key_words) == 3:
+        same = True
+
+        root = key_words[0]
+        ext1 = key_words[1].zfill(4)
+        ext2 = key_words[2].zfill(4)
+
+        path1 = os.path.join(data_root,root,root + '_' + ext1 + '.jpg')
+        path2 = os.path.join(data_root,root,root + '_' + ext2 + '.jpg')
+
+    elif len(key_words) == 4:
+        same = False
+        root1 = key_words[0]
+        ext1 = key_words[1].zfill(4)
+        root2 = key_words[2]
+        ext2 = key_words[3].zfill(4)
+
+        path1 = os.path.join(data_root,root1,root1 + '_' + ext1 + '.jpg')
+        path2 = os.path.join(data_root,root2,root2 + '_' + ext2 + '.jpg')
+
+    return path1,path2,same

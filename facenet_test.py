@@ -3,7 +3,9 @@ from get_file_img import get_random_pair
 import torchvision.transforms as transforms
 import torch
 from PIL import Image
+import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+import time
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -16,9 +18,13 @@ mtcnn = MTCNN(
 )
 model = InceptionResnetV1(pretrained='vggface2').eval()
 
-for i in range(1,10):
+
+res_same = []
+res_not = []
+start = time.time()
+for i in range(1,20):
     # Get images
-    img1,img2,same = get_random_pair('rfw','Indian')
+    img1,img2,same = get_random_pair('rfw','African')
     # noah = Image.open('/Users/nm/Desktop/noah.jpg')
     # bubs = Image.open('/Users/nm/Desktop/bubs.jpg')
     # pops = Image.open('/Users/nm/Desktop/pops.jpg')
@@ -42,8 +48,19 @@ for i in range(1,10):
         vector1 = model(tensor_img)
 
         print(same)
+        if same:
+            res_same.append(cosine_similarity(vector0,vector1))
+        else:
+            res_not.append(cosine_similarity(vector0,vector1))
         print(cosine_similarity(vector0,vector1))
 
+
+res_same = np.array(res_same)
+res_not = np.array(res_not)
+
+print('Average result of same: ' + str(np.mean(res_same)))
+print('Average result of not: ' + str(np.mean(res_not)))
+print('Took {} seconds'.format(time.time() - start))
 
     # img1.show()
     # img2.show()
