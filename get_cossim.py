@@ -50,8 +50,8 @@ for ethnic in ethnicities:
 
             with torch.no_grad():
                 start_time = time.time()
-                ten1 = PILtoTensor(im1).unsqueeze(0)
-                ten2 = PILtoTensor(im2).unsqueeze(0)
+                ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
+                ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
 
                 embedding1 = model(ten1)
                 embedding2 = model(ten2)
