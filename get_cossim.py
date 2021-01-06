@@ -42,7 +42,7 @@ for ethnic in ethnicities:
     print('Evaluating {} '.format(ethnic))
     print('*' * 30)
 
-    data_file_name = os.path.join(cossim_path,'{}_cossim.csv'.format(ethnic))
+    data_file_name = os.path.join(cossim_path,'{}_{}_cossim.csv'.format(ethnic,modelName))
     with open(data_file_name,'w+') as data_file:
         data_file.write('ethnicity,id1,num1,id2,num2,same,{} \n'.format(modelName))
         embedding_dict = {}
@@ -56,7 +56,7 @@ for ethnic in ethnicities:
 
         for i,line in enumerate(pairs):
 
-            if i % 50 == 0: # temporary for testing                
+            if i % 50 == 0: # temporary for testing
                 print('Completed {} {} pairs'.format(i,ethnic))
 
 
