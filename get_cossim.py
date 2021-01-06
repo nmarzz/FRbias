@@ -57,6 +57,7 @@ for ethnic in ethnicities:
         for i,line in enumerate(pairs):
 
             if i % 50 == 0: # temporary for testing
+                break
                 print('Completed {} {} pairs'.format(i,ethnic))
 
 
@@ -99,3 +100,7 @@ for ethnic in ethnicities:
 
 print('Took {} seconds'.format(time.time() - start_time))
 print(num_bad_paths)
+
+
+with open(os.path.join(cossim_path,'bad_pairs.txt'),'w+') as badpairs:
+    print(num_bad_paths,file=badpairs)
