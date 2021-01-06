@@ -47,12 +47,13 @@ def interp_pair(data_root,line):
     if len(key_words) == 3:
         same = True
 
-        root = key_words[0]
+        root1 = key_words[0]
+        root2 = key_words[0]
         ext1 = key_words[1].zfill(4)
         ext2 = key_words[2].zfill(4)
 
-        path1 = os.path.join(data_root,root,root + '_' + ext1 + '.jpg')
-        path2 = os.path.join(data_root,root,root + '_' + ext2 + '.jpg')
+        path1 = os.path.join(data_root,root1,root1 + '_' + ext1 + '.jpg')
+        path2 = os.path.join(data_root,root2,root2 + '_' + ext2 + '.jpg')
 
     elif len(key_words) == 4:
         same = False
@@ -64,4 +65,4 @@ def interp_pair(data_root,line):
         path1 = os.path.join(data_root,root1,root1 + '_' + ext1 + '.jpg')
         path2 = os.path.join(data_root,root2,root2 + '_' + ext2 + '.jpg')
 
-    return path1,path2,same
+    return path1,path2,root1,root2,ext1,ext2,same
