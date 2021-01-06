@@ -27,8 +27,8 @@ import models.net_sphere
 model = getattr(models.net_sphere,'sphere20a')()
 model.load_state_dict(torch.load('sphereface.pth'))
 model.to(device).eval()
-modelName = 'sphereface'
-model_input_size = (96,112)
+modelName = 'sphereface_112-96'
+model_input_size = (112,96)
 # ================================================================
 
 
@@ -79,7 +79,6 @@ for ethnic in ethnicities:
                 im2 = Image.open(path2)
 
                 with torch.no_grad():
-                    start_time = time.time()
                     ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
                     ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
 
@@ -91,7 +90,7 @@ for ethnic in ethnicities:
 
                     cosine_sim = cosine_similarity(embedding1.cpu(),embedding2.cpu())
 
-                    csv_line = '{},{},{},{},{},{},{} \n'.format(ethnic,id1,pic1,id2,pic2,issame,cosine_sim.item())
+                    csv_line = '{},{},{},{},{},{},{}\n'.format(ethnic,id1,pic1,id2,pic2,issame,cosine_sim.item())
                     data_file.write(csv_line)
 
             except FileNotFoundError:
