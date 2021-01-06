@@ -44,8 +44,8 @@ with torch.no_grad():
     print(cosine_similarity(vector0,vector1))
 
 
-img1.show()
-img2.show()
+# img1.show()
+# img2.show()
 #
 # with torch.no_grad():
 #     noah_tens = mtcnn(noah)
