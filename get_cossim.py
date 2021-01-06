@@ -15,9 +15,21 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Model on ' + str(device))
 
 # Define the model
-model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
-modelName = 'facenet'
-model_input_size = (160,160)
+
+# ================ code for facenet ===========================
+# model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
+# modelName = 'facenet'
+# model_input_size = (160,160)
+# ================================================================
+
+# ================ code for sphereface ===========================
+import models.net_sphere
+model = getattr(models.net_sphere,'sphere20a')()
+model.load_state_dict(torch.load('sphereface.pth'))
+model.to(device).eval()
+modelName = 'sphereface'
+model_input_size = (96,112)
+# ================================================================
 
 
 ethnicities = ['Asian','African','Caucasian','Indian']
