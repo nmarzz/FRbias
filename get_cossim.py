@@ -10,9 +10,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 root = 'rfw'
 
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-
-model = InceptionResnetV1(pretrained='vggface2').eval()
+model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
 modelName = 'facenet'
 model_input_size = (160,160)
 
@@ -25,8 +25,9 @@ PILtoTensor = transforms.Compose([transforms.Resize(model_input_size),transforms
 
 start_time = time.time()
 num_bad_paths = {'Asian': 0, 'Caucasian': 0,'Indian': 0,'African':0 }
-embedding_dict = {}
+
 for ethnic in ethnicities:
+    embedding_dict = {}
     pair_path = os.path.join(root,'txts',ethnic,ethnic + '_pairs.txt')
     data_path = os.path.join(root,'data',ethnic + '_cropped')
 
@@ -35,9 +36,13 @@ for ethnic in ethnicities:
 
     pairs = open(pair_path,'r')
 
-    for line in pairs:
-        path1,path2,issame  = interp_pair(data_path,line)
+    for i,line in enumerate(pairs):
 
+        if i > 10: # temporary for testing
+            break
+
+
+        path1,path2,issame  = interp_pair(data_path,line)
 
         try:
             im1 = Image.open(path1)
@@ -50,7 +55,7 @@ for ethnic in ethnicities:
 
                 embedding1 = model(ten1)
                 embedding2 = model(ten2)
-                
+
                 embedding_dict[path1] = embedding1
                 embedding_dict[path2] = embedding2
 
@@ -58,9 +63,15 @@ for ethnic in ethnicities:
             num_bad_paths[ethnic] += 1
 
 
+    dict_filename = '{}_{}_embeddings'.format(ethnic,modelName)
+    csv_filename = '{}_{}_cossim'.format(ethnic,modelName)
+    with open(dict_filename,'w+') as dict_file:
+        pass
+
+
+
 
 
 
 print('Took {} seconds'.format(time.time() - start_time))
-print(embedding_dict)
 print(num_bad_paths)
