@@ -13,6 +13,7 @@ root = 'rfw'
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
+print('Model on ' + str(device))
 modelName = 'facenet'
 model_input_size = (160,160)
 
