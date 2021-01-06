@@ -18,7 +18,7 @@ model = InceptionResnetV1(pretrained='vggface2').eval()
 
 for i in range(1,10):
     # Get images
-    img1,img2,same = get_random_pair('rfw','Caucasian')
+    img1,img2,same = get_random_pair('rfw','Indian')
     # noah = Image.open('/Users/nm/Desktop/noah.jpg')
     # bubs = Image.open('/Users/nm/Desktop/bubs.jpg')
     # pops = Image.open('/Users/nm/Desktop/pops.jpg')
