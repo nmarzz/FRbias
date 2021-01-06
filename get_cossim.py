@@ -56,7 +56,7 @@ for ethnic in ethnicities:
 
         for i,line in enumerate(pairs):
 
-            if i % 50 == 0: # temporary for testing
+            if i % 50 == 10: # temporary for testing
                 break
                 print('Completed {} {} pairs'.format(i,ethnic))
 
