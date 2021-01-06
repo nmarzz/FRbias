@@ -12,11 +12,13 @@ from sklearn.metrics.pairwise import cosine_similarity
 root = 'rfw'
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
 print('Model on ' + str(device))
+
+# Define the model
+model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
 modelName = 'facenet'
 model_input_size = (160,160)
+
 
 ethnicities = ['Asian','African','Caucasian','Indian']
 
@@ -75,7 +77,7 @@ for ethnic in ethnicities:
                     embedding_dict[path1] = embedding1
                     embedding_dict[path2] = embedding2
 
-                    cosine_sim = cosine_similarity(embedding1,embedding2)
+                    cosine_sim = cosine_similarity(embedding1.cpu(),embedding2.cpu())
 
                     csv_line = '{},{},{},{},{},{},{} \n'.format(ethnic,id1,pic1,id2,pic2,issame,cosine_sim.item())
                     data_file.write(csv_line)
