@@ -1,3 +1,4 @@
+import argparse
 from facenet_pytorch import MTCNN, InceptionResnetV1
 from get_file_img import interp_pair
 import os.path
@@ -9,27 +10,38 @@ import time
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
 
-root = 'rfw'
+
+parser = argparse.ArgumentParser(description='Get Cosine Similarity scores from model and RFW dataset')
+
+parser.add_argument('-data_dir',default = 'rfw', metavar='DIR', type=str,
+                    help='Root to RFW dataset')
+parser.add_argument('-model', default = 'facenet' ,metavar='MOD', type=str,
+                    help='Model to use (facenet or sphereface)')
+args = parser.parse_args()
+
+root = args.data_dir
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Model on ' + str(device))
 
 # Define the model
 
+if args.model == 'facenet':
 # ================ code for facenet ===========================
-# model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
-# modelName = 'facenet'
-# model_input_size = (160,160)
-# ================================================================
+    model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
+    modelName = 'facenet'
+    model_input_size = (160,160)
+elif args.model == 'sphereface':
 
 # ================ code for sphereface ===========================
-import models.net_sphere
-model = getattr(models.net_sphere,'sphere20a')()
-model.load_state_dict(torch.load('sphereface.pth'))
-model.to(device).eval()
-modelName = 'sphereface_112-96'
-model_input_size = (112,96)
-# ================================================================
+    import models.net_sphere
+    model = getattr(models.net_sphere,'sphere20a')()
+    model.load_state_dict(torch.load('sphereface.pth'))
+    model.to(device).eval()
+    modelName = 'sphereface_112-96'
+    model_input_size = (112,96)
+else:
+    raise ValueError('Invalid model choice')
 
 
 ethnicities = ['Asian','African','Caucasian','Indian']

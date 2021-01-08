@@ -1,9 +1,18 @@
 import os
+import argparse
 
+parser = argparse.ArgumentParser(description='Stitch together the data from \'get_cossim\'')
 
-root = 'rfw'
+parser.add_argument('-data_dir',default = 'rfw', metavar='DIR', type=str,
+                    help='Root to RFW dataset')
+parser.add_argument('-modelName', default = 'facenet' ,metavar='MOD', type=str,
+                    help='Name of model to use (facenet or sphereface)')
+args = parser.parse_args()
+
+root = args.data_dir
+
 data_folder = 'cossim_data'
-modelName = 'sphereface_112-96'
+modelName = args.modelName
 stitched_file = '{}_cossim.csv'.format(modelName)
 
 
