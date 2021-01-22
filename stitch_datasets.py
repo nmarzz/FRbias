@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser(description='Stitch together the data from \'ge
 
 parser.add_argument('-data_dir',default = 'rfw', metavar='DIR', type=str,
                     help='Root to RFW dataset')
-parser.add_argument('-modelName', default = 'facenet' ,metavar='MOD', type=str,
+parser.add_argument('-modelName', default = 'senet' ,metavar='MOD', type=str,
                     help='Name of model to use (facenet or sphereface)')
 args = parser.parse_args()
 

@@ -17,6 +17,7 @@ parser.add_argument('-data_dir',default = 'rfw', metavar='DIR', type=str,
                     help='Root to RFW dataset')
 parser.add_argument('-model', default = 'senet' ,metavar='MOD', type=str,
                     help='Model to use (facenet or sphereface)')
+parser.add_argument('-save-embed', default = False ,metavar='SVEMB', type=bool)
 args = parser.parse_args()
 
 root = args.data_dir
@@ -107,8 +108,9 @@ for ethnic in ethnicities:
                         embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
                         embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
 
-                    embedding_dict[path1] = embedding1
-                    embedding_dict[path2] = embedding2
+                    if args.save_embed:
+                        embedding_dict[path1] = embedding1
+                        embedding_dict[path2] = embedding2
 
                     cosine_sim = cosine_similarity(embedding1.cpu(),embedding2.cpu())
 
@@ -122,8 +124,9 @@ for ethnic in ethnicities:
         dict_filename = os.path.join(embedding_path,'{}_{}_embeddings.pickle'.format(ethnic,modelName))
         csv_filename = '{}_{}_cossim'.format(ethnic,modelName)
 
-        with open(dict_filename,'wb+') as dict_file:
-            pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
+        if args.save_embed:
+            with open(dict_filename,'wb+') as dict_file:
+                pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
 
 
 
