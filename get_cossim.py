@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser(description='Get Cosine Similarity scores from 
 
 parser.add_argument('-data_dir',default = 'rfw', metavar='DIR', type=str,
                     help='Root to RFW dataset')
-parser.add_argument('-model', default = 'facenet' ,metavar='MOD', type=str,
+parser.add_argument('-model', default = 'senet' ,metavar='MOD', type=str,
                     help='Model to use (facenet or sphereface)')
 args = parser.parse_args()
 
@@ -40,6 +40,12 @@ elif args.model == 'sphereface':
     model.to(device).eval()
     modelName = 'sphereface_112-96'
     model_input_size = (112,96)
+
+elif args.model == 'senet':
+    from models.sennet_VGG import senet50_scratch_dag
+    model = senet50_scratch_dag('senet50_scratch_dag.pth').to(device).eval()
+    modelName = 'senet'
+    model_input_size = (244,244)
 else:
     raise ValueError('Invalid model choice')
 
@@ -96,6 +102,10 @@ for ethnic in ethnicities:
 
                     embedding1 = model(ten1)
                     embedding2 = model(ten2)
+
+                    if args.model == 'senet':
+                        embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
+                        embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
 
                     embedding_dict[path1] = embedding1
                     embedding_dict[path2] = embedding2

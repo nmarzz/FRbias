@@ -31,12 +31,12 @@ def get_random_pair(rfw_root,race):
     TEXT = open(TEXT_PATH,'r')
 
     pair_line = random_line(TEXT)
-    path1,path2,same = interp_pair(DATA_PATH,pair_line)
+    path1,path2,root1,root2,ext1,ext2,same = interp_pair(DATA_PATH,pair_line)
 
     img1 = Image.open(path1)
     img2 = Image.open(path2)
 
-    return img1,img2,same
+    return img1,img2,path1,path2,same
 
 
 
