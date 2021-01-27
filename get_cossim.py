@@ -135,7 +135,7 @@ for ethnic in ethnicities:
                         output = model(input)
 
                         embedding1 = output[0].unsqueeze(0)
-                        embedding2 = output[2].unsqueeze(0)
+                        embedding2 = output[1].unsqueeze(0)
 
                         if args.model == 'senet':
                             embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
