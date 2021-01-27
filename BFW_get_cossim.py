@@ -82,7 +82,11 @@ PILtoTensor_flip = transforms.Compose([transforms.Resize(model_input_size),trans
 num_bad_paths = {'asian_females': 0, 'asian_males': 0,'black_females': 0,'black_males':0,'indian_females':0,'indian_males':0 ,'white_females':0,'white_males':0}
 
 pair_path = os.path.join(root,'pairsdata.csv')
-data_file_name = os.path.join(cossim_path,'BFWdata_{}.csv'.format(modelName))
+
+if modelName == 'facenet' or modelName == 'facenet-webface':
+    restarted = 'restarted'
+
+data_file_name = os.path.join(cossim_path,'BFWdata_{}{}.csv'.format(modelName,restarted))
 
 pairs = open(pair_path,'r')
 
@@ -94,6 +98,12 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
     data_file.write('fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2,{}\n'.format(modelName))
 
     for i,line in enumerate(pairs):
+
+        if i < 450322 and modelName == 'facenet':
+            continue
+
+        if i < 261416 and modelName == 'facenet-webface':
+            continue
 
         if i == 0:
             continue
