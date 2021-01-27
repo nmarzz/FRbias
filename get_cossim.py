@@ -39,6 +39,13 @@ if args.model == 'facenet':
     model = InceptionResnetV1(pretrained='vggface2').to(device).eval()
     modelName = 'facenet'
     model_input_size = (160,160)
+
+elif args.model == 'facenet-webface':
+# ================ code for facenet ===========================
+    model = InceptionResnetV1(pretrained='casia-webface').to(device).eval()
+    modelName = 'facenet-webface'
+    model_input_size = (160,160)
+
 elif args.model == 'sphereface':
 
 # ================ code for sphereface ===========================
@@ -124,8 +131,11 @@ for ethnic in ethnicities:
                         ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
                         ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
 
-                        embedding1 = model(ten1)
-                        embedding2 = model(ten2)
+                        input = torch.vstack([ten1,ten2])
+                        output = model(input)
+
+                        embedding1 = output[0].unsqueeze(0)
+                        embedding2 = output[2].unsqueeze(0)
 
                         if args.model == 'senet':
                             embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
