@@ -84,7 +84,7 @@ num_bad_paths = {'asian_females': 0, 'asian_males': 0,'black_females': 0,'black_
 pair_path = os.path.join(root,'pairsdata.csv')
 
 if modelName == 'facenet' or modelName == 'facenet-webface':
-    restarted = 'restarted'
+    restarted = 'restarted2'
 
 data_file_name = os.path.join(cossim_path,'BFWdata_{}{}.csv'.format(modelName,restarted))
 
@@ -99,10 +99,10 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
 
     for i,line in enumerate(pairs):
 
-        if i < 450322 and modelName == 'facenet':
+        if i < (450322 + 141225) and modelName == 'facenet':
             continue
 
-        if i < 261416 and modelName == 'facenet-webface':
+        if i < (261416 + 135861) and modelName == 'facenet-webface':
             continue
 
         if i == 0:
