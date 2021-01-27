@@ -90,7 +90,7 @@ for ethnic in ethnicities:
 
     data_file_name = os.path.join(cossim_path,'{}_{}_cossim.csv'.format(ethnic,modelName))
     with open(data_file_name,'w+') as data_file:
-        data_file.write('ethnicity,id1,num1,id2,num2,same,{} \n'.format(modelName))
+        data_file.write('ethnicity,id1,num1,id2,num2,same,{}\n'.format(modelName))
         embedding_dict = {}
         pair_path = os.path.join(root,'txts',ethnic,ethnic + '_pairs.txt')
         data_path = os.path.join(root,'data',ethnic + '_cropped')
