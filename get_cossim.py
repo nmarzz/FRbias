@@ -13,11 +13,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 parser = argparse.ArgumentParser(description='Get Cosine Similarity scores from model and RFW dataset')
 
-parser.add_argument('-data_dir',default = 'rfw', metavar='DIR', type=str,
+parser.add_argument('--data_dir',default = 'rfw', metavar='DIR', type=str,
                     help='Root to RFW dataset')
-parser.add_argument('-model', default = 'senet' ,metavar='MOD', type=str,
-                    help='Model to use (facenet or sphereface)')
-parser.add_argument('-save-embed', default = False ,metavar='SVEMB', type=bool)
+parser.add_argument('--model', default = 'senet' ,metavar='MOD', type=str,
+                    help='Model to use (senet or facenet or sphereface)')
+parser.add_argument('--save-embed', default = False ,metavar='SVEMB', type=bool)
 args = parser.parse_args()
 
 root = args.data_dir
