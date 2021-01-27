@@ -2,7 +2,7 @@ import os.path
 import random
 from PIL import Image
 
-root = 'rfw'
+
 
 def get_random_pair(rfw_root,race):
     '''
@@ -21,8 +21,8 @@ def get_random_pair(rfw_root,race):
         raise ValueError("Invalid race choice: Must be Asian, African, Indian, or Caucasian")
 
 
-    TEXT_PATH = os.path.join(root,'txts',race, race + '_pairs.txt')
-    DATA_PATH = os.path.join(root,'data',race + '_cropped')
+    TEXT_PATH = os.path.join(rfw_root,'txts',race, race + '_pairs.txt')
+    DATA_PATH = os.path.join(rfw_root,'data',race + '_cropped')
     print('Retrieving images from: ' + DATA_PATH)
 
     if not (os.path.exists(TEXT_PATH) and os.path.exists(DATA_PATH)):
@@ -39,9 +39,15 @@ def get_random_pair(rfw_root,race):
     return img1,img2,path1,path2,same
 
 
+def interp_pair(data_root,line,dataset = 'rfw'):
+    if dataset == 'rfw':
+        return interp_pair_rfw(data_root,line)
+    elif dataset == 'bfw':
+        return interp_pair_bfw(data_root,line)
 
 
-def interp_pair(data_root,line):
+
+def interp_pair_rfw(data_root,line):
     key_words = line.split()
 
     if len(key_words) == 3:
@@ -66,3 +72,53 @@ def interp_pair(data_root,line):
         path2 = os.path.join(data_root,root2,root2 + '_' + ext2 + '.jpg')
 
     return path1,path2,root1,root2,ext1,ext2,same
+
+
+
+def interp_pair_bfw(data_root,line):
+    key_words = line.split(',')
+    fold = key_words[0]
+    path1 = os.path.join(data_root,key_words[1])
+    path2 = os.path.join(data_root,key_words[2])
+    same = key_words[3]
+    id1 = key_words[4]
+    id2 = key_words[5]
+    att1 = key_words[6]
+    att2 = key_words[7]
+    g1 = key_words[13]
+    g2 = key_words[14]
+    e1 = key_words[15]
+    e2 = key_words[16]
+
+
+    return fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2
+
+#
+# pairs_data = 'pairsdata.csv'
+# bfwroot = 'bfw_cropped'
+# bfwpath = os.path.join(bfwroot,pairs_data)
+#
+#
+#
+#
+#
+# with open(bfwpath,'r') as file:
+#     for i,pairs in enumerate(file):
+#
+#         if i > 10:
+#             break
+#         elif i == 0:
+#             continue
+#
+#
+#
+#         line = pairs.split(',')
+#         print(line)
+#         imgpath = os.path.join(bfwroot,line[1])
+#
+#         img = Image.open(imgpath)
+#         # if i == 1:
+#         #     img.show()
+#         #
+#         # elif i ==9:
+#         #     img.show()
