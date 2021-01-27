@@ -117,7 +117,7 @@ for ethnic in ethnicities:
                         output = model(input)
 
                         embedding1 = output[0].unsqueeze(0)
-                        embedding = output[2].unsqueeze(0)
+                        embedding2 = output[2].unsqueeze(0)
 
                     else:
 
