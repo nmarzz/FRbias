@@ -1,10 +1,9 @@
 import time
 
-
+t = 0
 while True:
-    t = 0
 
     time.sleep(3)
-    t += 10
+    t += 3
 
     print('Time is {}'.format(t))
