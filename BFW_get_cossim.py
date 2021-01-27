@@ -53,7 +53,7 @@ elif args.model == 'sphereface':
     model = getattr(models.net_sphere,'sphere20a')()
     model.load_state_dict(torch.load('sphereface.pth'))
     model.to(device).eval()
-    modelName = 'sphereface_112-96'
+    modelName = 'sphereface'
     model_input_size = (112,96)
 
 elif args.model == 'senet':
@@ -98,7 +98,7 @@ with open(data_file_name,'w+',buffering=1) as data_file:
         if i == 0:
             continue
 
-        if i % 50 == 0:
+        if i % 1000 == 0:
             print('Completed {} pairs'.format(i))
 
 
