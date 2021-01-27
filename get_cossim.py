@@ -20,6 +20,13 @@ parser.add_argument('--model', default = 'senet' ,metavar='MOD', type=str,
 parser.add_argument('--save-embed', default = False ,metavar='SVEMB', type=bool)
 args = parser.parse_args()
 
+
+for p in vars(args).items():
+    print('  ',p[0]+': ',p[1])
+print('\n')
+
+
+
 root = args.data_dir
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
