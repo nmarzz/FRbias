@@ -90,7 +90,7 @@ pairs = open(pair_path,'r')
 
 start_time = time.time()
 
-with open(data_file_name,'w+') as data_file:
+with open(data_file_name,'w+',buffering=1) as data_file:
     data_file.write('fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2,{}\n'.format(modelName))
 
     for i,line in enumerate(pairs):
@@ -98,7 +98,7 @@ with open(data_file_name,'w+') as data_file:
         if i == 0:
             continue
 
-        if i % 50 == 0: # temporary for testing
+        if i % 50 == 0:
             print('Completed {} pairs'.format(i))
 
 
@@ -106,7 +106,7 @@ with open(data_file_name,'w+') as data_file:
 
         try:
             im1 = Image.open(path1)
-            im2 = Image.open(path2)            
+            im2 = Image.open(path2)
 
             with torch.no_grad():
 

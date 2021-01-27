@@ -76,7 +76,7 @@ def interp_pair_rfw(data_root,line):
 
 
 def interp_pair_bfw(data_root,line):
-    key_words = line.split(',')
+    key_words = line.strip().split(',')
     fold = key_words[0]
     path1 = os.path.join(data_root,key_words[1])
     path2 = os.path.join(data_root,key_words[2])
