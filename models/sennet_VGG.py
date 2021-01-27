@@ -6,8 +6,8 @@ class Senet50_scratch_dag(nn.Module):
 
     def __init__(self):
         super(Senet50_scratch_dag, self).__init__()
-        self.meta = {'mean': [123, 117, 104],
-                     'std': [1, 1, 1],
+        self.meta = {'mean': [0.5195, 0.4015, 0.3451],
+                     'std': [0.2220, 0.1931, 0.1804],
                      'imageSize': [224, 224, 3]}
 
         self.conv1_7x7_s2 = nn.Conv2d(3, 64, kernel_size=[7, 7], stride=(2, 2), padding=(3, 3), bias=False)
