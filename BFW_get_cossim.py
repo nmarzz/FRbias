@@ -85,6 +85,8 @@ pair_path = os.path.join(root,'pairsdata.csv')
 
 if modelName == 'facenet' or modelName == 'facenet-webface':
     restarted = 'restarted2'
+else:
+    restarted = ''
 
 data_file_name = os.path.join(cossim_path,'BFWdata_{}{}.csv'.format(modelName,restarted))
 
