@@ -163,7 +163,8 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
             num_bad_paths[att2] += 1
 
 
-    dict_filename = os.path.join(embedding_path,'{}_{}_embeddings.pickle'.format(ethnic,modelName))
+
+    
     # csv_filename = '{}_{}_cossim'.format(ethnic,modelName)
 
     if args.save_embed:
