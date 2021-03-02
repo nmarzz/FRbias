@@ -141,8 +141,7 @@ for ethnic in ethnicities:
                             embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
                             embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
 
-                    if args.save_embed:
-                        print(embedding1)
+                    if args.save_embed:                        
                         embedding_dict[path1] = embedding1.cpu()
                         embedding_dict[path2] = embedding2.cpu()
 
