@@ -165,7 +165,7 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
 
 
     # csv_filename = '{}_{}_cossim'.format(ethnic,modelName)
-
+    dict_filename = os.path.join(embedding_path,'{}_embeddings.pickle'.format(modelName))
     if args.save_embed:
         with open(dict_filename,'wb+') as dict_file:
             pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
