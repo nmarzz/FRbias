@@ -68,6 +68,7 @@ else:
 # ethnicities = ['Asian','African','Caucasian','Indian']
 
 embedding_path = os.path.join(root,'embeddings')
+embedding_dict = {}
 
 cossim_path = os.path.join(root,'cossim_data')
 if not os.path.exists(embedding_path):
@@ -83,14 +84,18 @@ num_bad_paths = {'asian_females': 0, 'asian_males': 0,'black_females': 0,'black_
 
 pair_path = os.path.join(root,'pairsdata.csv')
 
-if modelName == 'facenet' or modelName == 'facenet-webface':
-    restarted = 'restarted2'
-else:
-    restarted = ''
-
-data_file_name = os.path.join(cossim_path,'BFWdata_{}{}.csv'.format(modelName,restarted))
+data_file_name = os.path.join(cossim_path,'BFWdata_{}.csv'.format(modelName))
 
 pairs = open(pair_path,'r')
+
+init_dict_pairs = open(pair_path,'r')
+
+# initialize the embedding dictionary with appropriate keys
+if args.save_embed:
+    for line in pairs:
+        fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2  = interp_pair(root,line,dataset = 'bfw')
+        embedding_dict[path1] = None
+        embedding_dict[path2] = None
 
 
 
@@ -100,12 +105,6 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
     data_file.write('fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2,{}\n'.format(modelName))
 
     for i,line in enumerate(pairs):
-
-        if i < (450322 + 141225) and modelName == 'facenet':
-            continue
-
-        if i < (261416 + 135861) and modelName == 'facenet-webface':
-            continue
 
         if i == 0:
             continue
@@ -164,7 +163,7 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
 
 
 
-    
+
     # csv_filename = '{}_{}_cossim'.format(ethnic,modelName)
 
     if args.save_embed:
