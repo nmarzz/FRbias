@@ -121,13 +121,11 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
 
             with torch.no_grad():
 
-                try:
-                    print('Got Embedds from Dict')
+                if embedding1 is not None and embedding2 is not None:
                     embedding1 = embedding_dict[path1].to(device)
                     embedding2 = embedding_dict[path2].to(device)
 
-                except KeyError:
-
+                else:
                     if args.model == 'sphereface':
                         ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
                         ten1_flip = PILtoTensor_flip(im1).unsqueeze(0).to(device)
