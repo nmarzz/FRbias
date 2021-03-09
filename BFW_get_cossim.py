@@ -121,9 +121,12 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
 
             with torch.no_grad():
 
+                embedding1 = embedding_dict[path1]
+                embedding2 = embedding_dict[path2]
+
                 if embedding1 is not None and embedding2 is not None:
-                    embedding1 = embedding_dict[path1].to(device)
-                    embedding2 = embedding_dict[path2].to(device)
+                        embedding1 = embedding1.to(device)
+                        embedding2 = embedding2.to(device)
 
                 else:
                     if args.model == 'sphereface':
