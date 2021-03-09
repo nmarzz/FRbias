@@ -121,36 +121,43 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
 
             with torch.no_grad():
 
-                if args.model == 'sphereface':
-                    ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
-                    ten1_flip = PILtoTensor_flip(im1).unsqueeze(0).to(device)
-                    ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
-                    ten2_flip = PILtoTensor_flip(im1).unsqueeze(0).to(device)
+                try:
+                    print('Got Embedds from Dict')
+                    embedding1 = embedding_dict[path1].to(device)
+                    embedding2 = embedding_dict[path2].to(device)
 
-                    input = torch.vstack([ten1,ten1_flip,ten2,ten2_flip])
-                    output = model(input)
+                except KeyError:
 
-                    embedding1 = output[0].unsqueeze(0)
-                    embedding2 = output[2].unsqueeze(0)
+                    if args.model == 'sphereface':
+                        ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
+                        ten1_flip = PILtoTensor_flip(im1).unsqueeze(0).to(device)
+                        ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
+                        ten2_flip = PILtoTensor_flip(im1).unsqueeze(0).to(device)
 
-                else:
+                        input = torch.vstack([ten1,ten1_flip,ten2,ten2_flip])
+                        output = model(input)
 
-                    ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
-                    ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
+                        embedding1 = output[0].unsqueeze(0)
+                        embedding2 = output[2].unsqueeze(0)
 
-                    input = torch.vstack([ten1,ten2])
-                    output = model(input)
+                    else:
 
-                    embedding1 = output[0].unsqueeze(0)
-                    embedding2 = output[1].unsqueeze(0)
+                        ten1 = PILtoTensor(im1).unsqueeze(0).to(device)
+                        ten2 = PILtoTensor(im2).unsqueeze(0).to(device)
 
-                    if args.model == 'senet':
-                        embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
-                        embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
+                        input = torch.vstack([ten1,ten2])
+                        output = model(input)
 
-                    if args.save_embed:
-                        embedding_dict[path1] = embedding1
-                        embedding_dict[path2] = embedding2
+                        embedding1 = output[0].unsqueeze(0)
+                        embedding2 = output[1].unsqueeze(0)
+
+                        if args.model == 'senet':
+                            embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
+                            embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
+
+                        if args.save_embed:
+                            embedding_dict[path1] = embedding1
+                            embedding_dict[path2] = embedding2
 
                 cosine_sim = cosine_similarity(embedding1.cpu(),embedding2.cpu())
 
