@@ -17,7 +17,7 @@ parser.add_argument('--data_dir',default = 'bfw_cropped', metavar='DIR', type=st
                     help='Root to BFW dataset')
 parser.add_argument('--model', default = 'facenet' ,metavar='MOD', type=str,
                     help='Model to use (senet or facenet or sphereface)')
-parser.add_argument('--save-embed', default = False ,metavar='SVEMB', type=bool)
+parser.add_argument('--save-embed', default = True ,metavar='SVEMB', type=bool)
 args = parser.parse_args()
 
 
@@ -157,8 +157,8 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
                             embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
 
                         if args.save_embed:
-                            embedding_dict[path1] = embedding1
-                            embedding_dict[path2] = embedding2
+                            embedding_dict[path1] = embedding1.cpu()
+                            embedding_dict[path2] = embedding2.cpu()
 
                 cosine_sim = cosine_similarity(embedding1.cpu(),embedding2.cpu())
 
