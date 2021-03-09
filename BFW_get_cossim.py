@@ -92,7 +92,7 @@ init_dict_pairs = open(pair_path,'r')
 
 # initialize the embedding dictionary with appropriate keys
 if args.save_embed:
-    for line in pairs:
+    for line in init_dict_pairs:
         fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2  = interp_pair(root,line,dataset = 'bfw')
         embedding_dict[path1] = None
         embedding_dict[path2] = None
