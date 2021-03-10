@@ -156,9 +156,9 @@ with open(data_file_name,'w+',buffering=1024) as data_file:
                             embedding1 = torch.linalg.norm(embedding1[1],dim = (2,3))
                             embedding2 = torch.linalg.norm(embedding2[1],dim = (2,3))
 
-                        if args.save_embed:
-                            embedding_dict[path1] = embedding1.cpu()
-                            embedding_dict[path2] = embedding2.cpu()
+                    if args.save_embed:
+                        embedding_dict[path1] = embedding1.cpu()
+                        embedding_dict[path2] = embedding2.cpu()
 
                 cosine_sim = cosine_similarity(embedding1.cpu(),embedding2.cpu())
 
