@@ -84,6 +84,12 @@ info_path = os.path.join(root,'adience_data.csv')
 
 info = open(info_path,'r')
 
+init_info = open(info_path,'r')
+
+for line in init_info:
+    path,age,gender = interp_pair(root,line,dataset = 'adience',aligned = True)
+    embedding_dict[path] = None
+
 for i,line in enumerate(info):
 
     if i % 1000 == 0:
