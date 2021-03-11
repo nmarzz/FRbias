@@ -86,7 +86,7 @@ info = open(info_path,'r')
 
 for i,line in enumerate(info):
 
-    if i % 1000 = 0:
+    if i % 1000 == 0:
         print('Completed {} images'.format(i))
 
     if i == 0:
