@@ -39,11 +39,13 @@ def get_random_pair(rfw_root,race):
     return img1,img2,path1,path2,same
 
 
-def interp_pair(data_root,line,dataset = 'rfw'):
+def interp_pair(data_root,line,dataset = 'rfw',aligned = True):
     if dataset == 'rfw':
         return interp_pair_rfw(data_root,line)
     elif dataset == 'bfw':
         return interp_pair_bfw(data_root,line)
+    elif dataset == 'adience':
+        return interp_pair_adience(data_root,line,aligned)
 
 
 
@@ -72,9 +74,6 @@ def interp_pair_rfw(data_root,line):
         path2 = os.path.join(data_root,root2,root2 + '_' + ext2 + '.jpg')
 
     return path1,path2,root1,root2,ext1,ext2,same
-
-
-
 def interp_pair_bfw(data_root,line):
     key_words = line.strip().split(',')
     fold = key_words[0]
@@ -92,6 +91,33 @@ def interp_pair_bfw(data_root,line):
 
 
     return fold,path1,path2,same,id1,id2,att1,att2,g1,g2,e1,e2
+
+
+def interp_pair_adience(data_root,line,aligned = True):
+    # user_id,original_image,face_id,age,gender,x,y,dx,dy,tilt_ang,fiducial_yaw_angle,fiducial_score,fold
+    key_words = line.strip().split('\t')
+
+
+    img_prefix = 'landmark_aligned_face.' if aligned else 'coarse_tilt_aligned_face.'
+
+    img_id = key_words[2] + '.'
+
+    path = os.path.join(key_words[0],img_prefix + img_id+ key_words[1])
+
+    if aligned:
+        path = os.path.join(data_root,'aligned',path)
+    else:
+        path = os.path.join(data_root,'faces',path)
+
+    age = key_words[3]
+    gender = key_words[4]
+
+    return path,age,gender
+
+
+
+
+
 
 #
 # pairs_data = 'pairsdata.csv'
