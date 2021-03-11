@@ -108,7 +108,7 @@ for i,line in enumerate(info):
             ten = PILtoTensor(img).unsqueeze(0).to(device)
             ten_flip = PILtoTensor_flip(img).unsqueeze(0).to(device)
 
-            input = torch.vstack([ten1,ten1_flip])
+            input = torch.vstack([ten,ten_flip])
             output = model(input)
 
             embedding = output[0].unsqueeze(0)
