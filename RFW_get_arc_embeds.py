@@ -162,7 +162,7 @@ for subgroup in ['African','Asian','Caucasian','Indian']:
     for subdir,dir,files in os.walk(ethnic_dir):
 
         for file in files:
-            path = os.path.join(subdir,file)
+            path = os.path.join(ethnic_dir,subdir,file)
 
             img = cv2.imread(path)
             pre = get_input(detector,img)
