@@ -18,8 +18,7 @@ from easydict import EasyDict as edict
 from mtcnn_detector import MtcnnDetector
 from skimage import transform as trans
 import matplotlib.pyplot as plt
-from mxnet.contrib.onnx.onnx2mx.import_model import import_modelfrom PIL import Image
-import time
+from mxnet.contrib.onnx.onnx2mx.import_model import import_model
 import pickle
 
 parser = argparse.ArgumentParser(description='Get Embeddings from Arcface model')
