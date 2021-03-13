@@ -152,7 +152,7 @@ if not os.path.exists(model_path):
 model = get_model(ctx , model_path)
 
 
-adience = pd.read_csv('adience/adience_data.csv')
+adience = pd.read_csv('adience/adience_data.csv',delimiter = '\t')
 
 embedding_dict = {}
 
