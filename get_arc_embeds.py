@@ -156,22 +156,28 @@ adience = pd.read_csv('adience/adience_data.csv',delimiter = '\t')
 print(adience.columns)
 
 
+
 embedding_dict = {}
 
 for path in adience['aligned_path']:
     embedding_dict[path] = None
 
+num_bad_paths = 0
+for i,paths in enumerate(zip(adience['faces_path'],adience['aligned_path'])):
 
-for i,path in enumerate(adience['aligned_path']):
 
-    if i % 100 == 0:
-        print('Completed {} images'.format(i))
 
-    img = cv2.imread(path)
+    print(i)
+    img = cv2.imread(paths[0])
     pre = get_input(detector,img)
+
+    if pre is None:
+        num_bad_paths += 1
+        continue
+
     embedding = get_feature(model,pre)
 
-    embedding_dict[path] = embedding
+    embedding_dict[path[1]] = embedding
 
 
 
