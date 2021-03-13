@@ -153,6 +153,8 @@ model = get_model(ctx , model_path)
 
 
 adience = pd.read_csv('adience/adience_data.csv',delimiter = '\t')
+print(adience.columns)
+
 
 embedding_dict = {}
 
