@@ -164,7 +164,7 @@ for subgroup in ['African','Asian','Caucasian','Indian']:
         for file in files:
             path = os.path.join(subdir,file)
 
-            img = cv2.imread(paths)
+            img = cv2.imread(path)
             pre = get_input(detector,img)
 
             if pre is None:
