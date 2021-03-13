@@ -165,9 +165,10 @@ for path in adience['aligned_path']:
 num_bad_paths = 0
 for i,paths in enumerate(zip(adience['faces_path'],adience['aligned_path'])):
 
+    if i % 100 == 0:
+        print('Completed {} images'.format(i))
 
 
-    print(i)
     img = cv2.imread(paths[0])
     pre = get_input(detector,img)
 
