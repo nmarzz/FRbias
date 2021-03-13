@@ -19,6 +19,7 @@ from mtcnn_detector import MtcnnDetector
 from skimage import transform as trans
 import matplotlib.pyplot as plt
 from mxnet.contrib.onnx.onnx2mx.import_model import import_model
+import argparse
 import pickle
 
 parser = argparse.ArgumentParser(description='Get Embeddings from Arcface model')
@@ -159,7 +160,11 @@ for path in adience['aligned_path']:
     embedding_dict[path] = None
 
 
-for path in adience['aligned_path']:
+for i,path in enumerate(adience['aligned_path']):
+
+    if i % 100 == 0:
+        print('Completed {} images'.format(i))
+
     img = cv2.imread(path)
     pre = get_input(detector,img1)
     embedding = get_feature(model,pre)
