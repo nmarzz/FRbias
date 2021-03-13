@@ -178,11 +178,11 @@ for subgroup in ['African','Asian','Caucasian','Indian']:
 
 
 
-        embedding_path = 'rfw/embeddings'
-        dict_filename = os.path.join(embedding_path,'arcface_embeddings.pickle')
+embedding_path = 'rfw/embeddings'
+dict_filename = os.path.join(embedding_path,'arcface_embeddings.pickle')
 
-        with open(dict_filename,'wb+') as dict_file:
-            pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
+with open(dict_filename,'wb+') as dict_file:
+    pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
 
 
 print(num_bad_paths)
