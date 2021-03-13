@@ -168,7 +168,7 @@ for i,path in enumerate(adience['aligned_path']):
         print('Completed {} images'.format(i))
 
     img = cv2.imread(path)
-    pre = get_input(detector,img1)
+    pre = get_input(detector,img)
     embedding = get_feature(model,pre)
 
     embedding_dict[path] = embedding
