@@ -183,7 +183,7 @@ for i,paths in enumerate(zip(adience['faces_path'],adience['aligned_path'])):
 
 
 embedding_path = 'embeddings'
-dict_filename = os.path.join('arcface_embeddings.pickle')
+dict_filename = os.path.join('adience_arcface_embeddings.pickle')
 
 with open(dict_filename,'wb+') as dict_file:
     pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
