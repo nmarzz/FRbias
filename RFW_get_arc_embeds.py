@@ -185,4 +185,5 @@ with open(dict_filename,'wb+') as dict_file:
     pickle.dump(embedding_dict,dict_file,protocol=pickle.HIGHEST_PROTOCOL)
 
 
+
 print(num_bad_paths)
