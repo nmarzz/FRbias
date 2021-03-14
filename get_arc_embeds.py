@@ -177,7 +177,6 @@ for i,paths in enumerate(zip(adience['faces_path'],adience['aligned_path'])):
         continue
 
     embedding = get_feature(model,pre)
-    print(embedding)
 
     embedding_dict[paths[1]] = embedding
 
